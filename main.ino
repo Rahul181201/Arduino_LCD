@@ -9,7 +9,10 @@ void write_data(char);
 void setup() {
   init_port();
   init_lcd();
-  write_string("Embedded systems");
+  write_string("Embedded System");
+  out_data(0xc0);
+  lcd_control_write();
+  write_string("Programming");
 }
 void init_port(void ){
   volatile char *dirf = (volatile char *)0x30;
@@ -38,8 +41,11 @@ void init_lcd(void){
   lcd_control_write();
   out_data(0x06);
   lcd_control_write();
+  
 }
 void lcd_control_write(void){
+  out_control(0x00);
+  delay1(1);
   out_control(0x01);
   delay1(1);
   out_control(0x00);
